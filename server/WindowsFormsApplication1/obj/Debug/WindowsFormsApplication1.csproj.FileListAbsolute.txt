@@ -1,0 +1,12 @@
+E:\志鑫手游\server\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+E:\志鑫手游\server\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+E:\志鑫手游\server\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+E:\志鑫手游\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+E:\志鑫手游\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+E:\志鑫手游\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+E:\志鑫手游\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+E:\志鑫手游\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+E:\志鑫手游\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form2.resources
+E:\志鑫手游\server\WindowsFormsApplication1\bin\Debug\MySql.Data.dll
+E:\志鑫手游\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form3.resources
+E:\志鑫手游\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
