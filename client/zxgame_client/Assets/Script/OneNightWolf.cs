@@ -93,6 +93,7 @@ public class OneNightWolf : MonoBehaviour
                             players[i].enabled = true;
                             players[i].image.sprite = img[1];
                             players[i].GetComponentsInChildren<Text>()[0].text = "等待中";
+                            players[i].GetComponentsInChildren<Text>()[1].text = "";
                             
                         }
                         for (int i = 0; i < roomInfos.Length - 2; i++)

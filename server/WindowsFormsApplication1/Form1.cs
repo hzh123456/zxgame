@@ -290,13 +290,11 @@ namespace WindowsFormsApplication1
 
         public void MsgHandler(string msg,Socket client_socket)
         {
-            if (client_socket==null || !client_socket.Connected)
+            string index = "";
+            if (client_socket!=null && client_socket.Connected)
             {
-                ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "消息处理异常\r\n";
+                index = usersBack[client_socket].username;
             }
-            else
-            {
-                string index = usersBack[client_socket].username;
                 string[] data;
                 string command = HZHUtils.JieXiMsg(msg, out data);
                 switch (command)
@@ -397,7 +395,6 @@ namespace WindowsFormsApplication1
                         SendMsg(rooms[room_id].RoomInfo(),client_socket);
                         break;
                 }
-            }
         }
 
         private void button5_Click(object sender, EventArgs e)

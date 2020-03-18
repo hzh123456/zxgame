@@ -45,6 +45,10 @@ public class index : MonoBehaviour {
 
     public void back()
     {
+        if(Server.Connected())
+        {
+            Server.Close();
+        }
         SceneManager.LoadScene(0);
     }
 

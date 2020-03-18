@@ -165,3 +165,6 @@ E:\志鑫手游\client\New Unity Project (2)\Temp\bin\Debug\UnityEngine.ClusterR
 E:\志鑫手游\client\New Unity Project (2)\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 E:\志鑫手游\client\New Unity Project (2)\obj\Debug\Assembly-CSharp.dll
 E:\志鑫手游\client\New Unity Project (2)\obj\Debug\Assembly-CSharp.pdb
+E:\zxgame\client\zxgame_client\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+E:\zxgame\client\zxgame_client\obj\Debug\Assembly-CSharp.dll
+E:\zxgame\client\zxgame_client\obj\Debug\Assembly-CSharp.pdb

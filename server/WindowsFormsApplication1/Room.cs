@@ -73,11 +73,11 @@ namespace WindowsFormsApplication1
         {
             while(true)
             {
-                if (fangzhu_socket==null || !fangzhu_socket.Connected)
+                if (!fangzhu_socket.Connected || fangzhu_socket==null)
                 {
                     //HZHUtils.QuitRoom(fangzhu.username);
                     //QuitRoom(null);
-                    this.Form.MsgHandler("Quitroom|" + fangzhu.username, null);
+                    this.Form.MsgHandler("Quitroom|" + fangzhu.username+","+this.RoomId,null );
                     break;
                 }
                 Thread.Sleep(1000);
