@@ -233,6 +233,7 @@ namespace WindowsFormsApplication1
                 msg = index[0] + "号玩家被变成狼人\r\n";
                 FuPan += GetZuoWeiByShenfen("狼王")+"号： 狼王选择" + index[0] + "号玩家变为狼人\r\n";
                 SendMsg("skill|" + msg, players[GetZuoWeiByShenfen("狼王")].username);
+                ChangeWolfIndex = index[0];
             }
             if (UserSkill.TryGetValue("酒鬼", out index))
             {//酒鬼选择一张底牌，变为这张底牌
@@ -335,8 +336,9 @@ namespace WindowsFormsApplication1
                 }
             }
             if (ChangeWolfIndex>0)
-            {
+            {  
                 SendMsg("changewolf", players[ChangeWolfIndex].username);
+                ShowText.Text = ChangeWolfIndex + "号被交换 发送消息成功\r\n";
             }
 
             SendMsg("Gaming",null);
