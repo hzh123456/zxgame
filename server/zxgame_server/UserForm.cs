@@ -9,8 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication1
-{
+namespace zxgame_server
+{ 
     public partial class UserForm : Form
     {
 
@@ -21,7 +21,7 @@ namespace WindowsFormsApplication1
             this.users = users;
             InitializeComponent();
         }
-
+         
         private void UserForm_Load(object sender, EventArgs e)
         {
             foreach(user user in users.Keys)

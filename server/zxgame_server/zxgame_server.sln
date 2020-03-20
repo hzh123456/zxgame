@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "WindowsFormsApplication1.csproj", "{60336544-93A1-4BA8-A2F9-403A89CCAB05}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zxgame_server", "zxgame_server.csproj", "{60336544-93A1-4BA8-A2F9-403A89CCAB05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

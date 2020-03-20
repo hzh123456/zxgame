@@ -36,3 +36,7 @@ E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.csproj.Generat
 E:\zxgame\server\zxgame_server\bin\Debug\WindowsFormsApplication1.exe
 E:\zxgame\server\zxgame_server\bin\Debug\WindowsFormsApplication1.pdb
 E:\zxgame\server\zxgame_server\bin\Debug\MySql.Data.dll
+E:\zxgame\server\zxgame_server\bin\Debug\WindowsFormsApplication1.exe.manifest
+E:\zxgame\server\zxgame_server\bin\Debug\WindowsFormsApplication1.application
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.exe.manifest
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.application

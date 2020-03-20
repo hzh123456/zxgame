@@ -1,7 +1,7 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace zxgame_server
 {
     partial class UserForm
-    {
+    { 
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserForm));
             this.data = new System.Windows.Forms.DataGridView();
             this.username = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lastname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,6 +77,7 @@
             this.ClientSize = new System.Drawing.Size(488, 340);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.data);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UserForm";
             this.Text = "UserForm";
             this.Load += new System.EventHandler(this.UserForm_Load);

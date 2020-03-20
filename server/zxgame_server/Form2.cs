@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 
-namespace WindowsFormsApplication1
+namespace zxgame_server
 {
     public partial class Form2 : Form
     {

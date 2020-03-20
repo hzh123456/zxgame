@@ -1,0 +1,17 @@
+E:\zxgame\server\zxgame_server\bin\Release\MySql.Data.dll
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.csproj.GenerateResource.Cache
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.Form1.resources
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.Form2.resources
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.Form3.resources
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.RoomForm.resources
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.UserForm.resources
+E:\zxgame\server\zxgame_server\bin\Release\zxgame_server.exe.config
+E:\zxgame\server\zxgame_server\bin\Release\zxgame_server.exe.manifest
+E:\zxgame\server\zxgame_server\bin\Release\zxgame_server.application
+E:\zxgame\server\zxgame_server\bin\Release\zxgame_server.exe
+E:\zxgame\server\zxgame_server\bin\Release\zxgame_server.pdb
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.Properties.Resources.resources
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.exe.manifest
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.application
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.exe
+E:\zxgame\server\zxgame_server\obj\Release\zxgame_server.pdb

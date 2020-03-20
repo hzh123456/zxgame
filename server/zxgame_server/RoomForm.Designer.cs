@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApplication1
+﻿namespace zxgame_server
 {
     partial class RoomForm
     {
@@ -28,17 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RoomForm));
             this.data = new System.Windows.Forms.DataGridView();
-            this.data1 = new System.Windows.Forms.DataGridView();
-            this.username = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lastname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.roomid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fangzhu = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.playernum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.style = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.data1 = new System.Windows.Forms.DataGridView();
+            this.username = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lastname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.data1)).BeginInit();
             this.SuspendLayout();
@@ -58,6 +59,37 @@
             this.data.Size = new System.Drawing.Size(764, 288);
             this.data.TabIndex = 0;
             this.data.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.data_CellClick);
+            // 
+            // roomid
+            // 
+            this.roomid.HeaderText = "房间号";
+            this.roomid.Name = "roomid";
+            this.roomid.ReadOnly = true;
+            // 
+            // type
+            // 
+            this.type.HeaderText = "房间类型";
+            this.type.Name = "type";
+            this.type.ReadOnly = true;
+            // 
+            // fangzhu
+            // 
+            this.fangzhu.HeaderText = "房主";
+            this.fangzhu.Name = "fangzhu";
+            this.fangzhu.ReadOnly = true;
+            // 
+            // playernum
+            // 
+            this.playernum.HeaderText = "房间最大玩家数";
+            this.playernum.Name = "playernum";
+            this.playernum.ReadOnly = true;
+            this.playernum.Width = 120;
+            // 
+            // style
+            // 
+            this.style.HeaderText = "房间状态";
+            this.style.Name = "style";
+            this.style.ReadOnly = true;
             // 
             // data1
             // 
@@ -103,37 +135,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "房间内玩家信息：";
             // 
-            // roomid
-            // 
-            this.roomid.HeaderText = "房间号";
-            this.roomid.Name = "roomid";
-            this.roomid.ReadOnly = true;
-            // 
-            // type
-            // 
-            this.type.HeaderText = "房间类型";
-            this.type.Name = "type";
-            this.type.ReadOnly = true;
-            // 
-            // fangzhu
-            // 
-            this.fangzhu.HeaderText = "房主";
-            this.fangzhu.Name = "fangzhu";
-            this.fangzhu.ReadOnly = true;
-            // 
-            // playernum
-            // 
-            this.playernum.HeaderText = "房间最大玩家数";
-            this.playernum.Name = "playernum";
-            this.playernum.ReadOnly = true;
-            this.playernum.Width = 120;
-            // 
-            // style
-            // 
-            this.style.HeaderText = "房间状态";
-            this.style.Name = "style";
-            this.style.ReadOnly = true;
-            // 
             // RoomForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -143,6 +144,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.data1);
             this.Controls.Add(this.data);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RoomForm";
             this.Text = "RoomForm";
             this.Load += new System.EventHandler(this.RoomForm_Load);
