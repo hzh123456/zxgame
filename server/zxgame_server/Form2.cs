@@ -93,18 +93,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            if (flag)
-            {
-                SendMsg("msg|发送消息测试");
-            }
-            else
-            {
-                MessageBox.Show("请先连接服务器！");
-            }
-        }
-
         private void SendMsg(string msg)
         {
             if (flag)
@@ -171,34 +159,5 @@ namespace WindowsFormsApplication1
             button6.Enabled = false;
         }
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            string msg;
-            if (flag)
-            {
-                msg = "join|"+DateTime.Now.ToLocalTime().ToString()+",10000,test";
-                byte[] buffer = Encoding.UTF8.GetBytes(msg);
-                client_socket.Send(buffer);
-                System.Timers.Timer timer = new System.Timers.Timer(1000); 
-                timer.Interval = 1000;
-                timer.Enabled = true;
-                timer.Elapsed += new ElapsedEventHandler(RoomInfo);
-                
-            }
-            else
-            {
-                MessageBox.Show("请先连接服务器！");
-            }
-        }
-
-        private void RoomInfo(object sender, ElapsedEventArgs e)
-        {
-            if(client_socket!=null)
-            {
-                string msg = "RoomInfo|10000";
-                byte[] buffer = Encoding.UTF8.GetBytes(msg);
-                client_socket.Send(buffer);
-            }
-        }
     }
 }

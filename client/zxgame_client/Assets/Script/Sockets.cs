@@ -198,6 +198,11 @@ public class Sockets {
             clientSocket.Close();
         }
 
+        if (instance!=null)
+        {
+            instance = null;
+        }
+
         if (recvProcess != null)
         {
             recvProcess.Abort();

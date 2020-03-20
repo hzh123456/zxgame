@@ -21,6 +21,10 @@ public static class Server {
 
     public static bool IsFangZhu = false;
 
+    public static string shenfen;
+
+    public static int ZuoWei;
+
     public static void Connect(int port)
     {
         try

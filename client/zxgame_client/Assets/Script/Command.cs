@@ -13,15 +13,25 @@ namespace Assets.Script
             return str;
         }
 
-        public static string CreateRoom(string creater, int playnum, int type, int style,string lastname)
+        public static string CreateRoom(string creater, int playnum, int type, int style,string lastname,List<string> shenfen)
         {
-            string str = "create|" + creater + "," + playnum + "," + type + "," + style+","+lastname;
-            return str;
+            string str = "create|" + creater + "," + playnum + "," + type + "," + style+","+lastname+",";
+            foreach(string s in shenfen)
+            {
+                str += s + ".";
+            }
+            return str.Substring(0,str.Length-1);
         }
 
         public static string startGame(int roomid)
         {
             string str = "startGame|"+roomid;
+            return str;
+        }
+
+        public static string endGame(int roomid)
+        {
+            string str = "endGame|" + roomid;
             return str;
         }
 
@@ -53,6 +63,16 @@ namespace Assets.Script
         {
             string str = "msg|" + lastname+","+msg+","+roomid;
             return str;
+        }
+
+        public static string Game(string shenfen,string roomid,int[] index) 
+        {
+            string str = "game|" + shenfen + "," + roomid + ",";
+            foreach(int i in index)
+            {
+                str += i + ".";
+            }
+            return str.Substring(0, str.Length - 1);
         }
 
     }

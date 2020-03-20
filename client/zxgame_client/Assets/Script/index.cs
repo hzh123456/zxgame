@@ -48,6 +48,7 @@ public class index : MonoBehaviour {
         if(Server.Connected())
         {
             Server.Close();
+            Server.socket = null;
         }
         SceneManager.LoadScene(0);
     }

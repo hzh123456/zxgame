@@ -77,7 +77,7 @@ public class login : MonoBehaviour {
         {
             int ports=-1;
             bool flags = int.TryParse(port.text,out ports);
-            if (!flags || ports<0)
+            if (!flags || ports<=0)
             {
                 ShowOrHide1("端口号错误");
             }

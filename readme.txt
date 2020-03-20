@@ -1,3 +1,3 @@
-MyFirstGitFile
-detail
-cool
+志鑫手游：
+
+面杀用软件，目前支持文字聊天

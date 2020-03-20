@@ -12,12 +12,34 @@ namespace WindowsFormsApplication1
 
         public static MySqlConnection conn;
 
+        //解析用户发送消息的函数
         public static String JieXiMsg(string msg,out string[] data)
         {
             string[] strs = msg.Split('|');
             string command = strs[0];
             data = strs[1].Split(',');
             return command;
+        }
+
+        public static bool UpdateRoom(string roomid)
+        {
+            bool flag = false;
+
+            Open();
+
+            string sql = "update room set style=1 where id=@roomid";//使用@符构造sql变量
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            //使用MysqlCommand对象的parameters属性，该属性为像sql语句传递的参数集合，使用add方法向其中添加参数，参数以MysqlParameters对象形式传递
+
+            cmd.Parameters.Add(new MySqlParameter("@roomid", roomid));
+            conn.Open();
+            int i = cmd.ExecuteNonQuery();
+            if (i > 0)
+            {
+                flag = true;
+            }
+            Close();
+            return flag;
         }
 
         public static bool CreateRoom(string creater, int playernum, int type, int style)
@@ -70,6 +92,18 @@ namespace WindowsFormsApplication1
 
             return roomid;
         }
+
+        public static List<T> DaLuanList<T>(List<T> list)
+        { 
+            var random = new Random();
+            var newList = new List<T>();
+            foreach (var item in list)
+            {
+                newList.Insert(random.Next(newList.Count), item);
+            }
+            return newList;
+        }
+
         public static bool RemoveRoom(int roomid)
         {
             bool flag = false;
@@ -90,7 +124,6 @@ namespace WindowsFormsApplication1
             Close();
             return flag;
         }
-
 
         public static string IsRoom(int roomid, int type)
         {

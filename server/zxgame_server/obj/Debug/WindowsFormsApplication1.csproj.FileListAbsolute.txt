@@ -22,3 +22,17 @@ E:\zxgame\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.For
 E:\zxgame\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form3.resources
 E:\zxgame\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
 E:\zxgame\server\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+E:\zxgame\server\zxgame_server\bin\Debug\WindowsFormsApplication1.exe.config
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.exe
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.pdb
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.Form1.resources
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.Form2.resources
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.Form3.resources
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.RoomForm.resources
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.UserForm.resources
+E:\zxgame\server\zxgame_server\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+E:\zxgame\server\zxgame_server\bin\Debug\WindowsFormsApplication1.exe
+E:\zxgame\server\zxgame_server\bin\Debug\WindowsFormsApplication1.pdb
+E:\zxgame\server\zxgame_server\bin\Debug\MySql.Data.dll

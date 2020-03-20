@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Assets.Script;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System;
 
 public class Connect : MonoBehaviour {
 
@@ -148,7 +149,47 @@ public class Connect : MonoBehaviour {
                     }
                     else if (npcs.Count == num + 3)
                     {
-                        StartCoroutine(CreateGameIE(Server.username, num, index, Server.lastname));
+                        List<string> shenfen = new List<string>();
+                        for (int i = 0; i < toggles.Length;i++ )
+                        {
+                            if(toggles[i].isOn &&( i==0 || i==1))
+                            {
+                                shenfen.Add("狼人"+(i+1));
+                            }
+                            else if (toggles[i].isOn && i == 2)
+                            {
+                                shenfen.Add("预言家");
+                            }
+                            else if (toggles[i].isOn && i == 3)
+                            {
+                                shenfen.Add("盗贼");
+                            }
+                            else if (toggles[i].isOn && i == 4)
+                            {
+                                shenfen.Add("小女孩");
+                            }
+                            else if (toggles[i].isOn && i == 5)
+                            {
+                                shenfen.Add("守夜人");
+                            }
+                            else if (toggles[i].isOn && i == 6)
+                            {
+                                shenfen.Add("酒鬼");
+                            }
+                            else if (toggles[i].isOn && i == 7)
+                            {
+                                shenfen.Add("狼王");
+                            }
+                            else if (toggles[i].isOn && i == 8)
+                            {
+                                shenfen.Add("爪牙");
+                            }
+                            else if (toggles[i].isOn && (i == 9 || i == 10 || i == 11))
+                            {
+                                shenfen.Add("平民"+(i-8));
+                            }
+                        }
+                        StartCoroutine(CreateGameIE(Server.username, num, index, Server.lastname,shenfen));
                     }
                     else
                     {
@@ -174,26 +215,34 @@ public class Connect : MonoBehaviour {
         creates[index].enabled = true;
     }
 
-    IEnumerator CreateGameIE(string username,int num,int index,string lastname)
+    IEnumerator CreateGameIE(string username,int num,int index,string lastname,List<string> shenfen)
     {
-        string sendmsg = Command.CreateRoom(username, num, index, 0, lastname);
-        Server.socket.SendMsg(sendmsg);
-        bool f = false;
-        while (true)
+        try 
         {
-            string msg = Server.socket.GetMsg();
-            if (msg != "wait" && !string.IsNullOrEmpty(msg))
+            string sendmsg = Command.CreateRoom(username, num, index, 0, lastname, shenfen);
+            Server.socket.SendMsg(sendmsg);
+            bool f = false;
+            while (true)
             {
-                Server.roomid = msg;
-                Server.playernum = num;
-                Server.IsFangZhu = true;
-                f = true;
-                break;
+                string msg = Server.socket.GetMsg();
+                int roomidstr;
+                if (msg != "wait" && !string.IsNullOrEmpty(msg) && int.TryParse(msg,out roomidstr))
+                {
+                    Server.roomid = roomidstr.ToString();
+                    Server.playernum = num;
+                    Server.IsFangZhu = true;
+                    f = true;
+                    break;
+                }
             }
+            if (f)
+            {
+                SceneManager.LoadScene(2);
+            }        
         }
-        if (f)
+        catch (Exception e)
         {
-            SceneManager.LoadScene(2);
+            Debug.Log(e.ToString());
         }
         yield return new WaitForSeconds(0);
     }

@@ -50,7 +50,6 @@
             this.button5 = new System.Windows.Forms.Button();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.portText = new System.Windows.Forms.TextBox();
             this.portBtn = new System.Windows.Forms.Button();
@@ -226,7 +225,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(1080, 311);
+            this.button5.Location = new System.Drawing.Point(1081, 325);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(90, 35);
             this.button5.TabIndex = 7;
@@ -242,23 +241,13 @@
             // button8
             // 
             this.button8.Font = new System.Drawing.Font("宋体", 8F);
-            this.button8.Location = new System.Drawing.Point(27, 80);
+            this.button8.Location = new System.Drawing.Point(12, 80);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(103, 46);
+            this.button8.Size = new System.Drawing.Size(129, 48);
             this.button8.TabIndex = 8;
             this.button8.Text = "开启自动清屏";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(1080, 352);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(90, 33);
-            this.button9.TabIndex = 9;
-            this.button9.Text = "房间测试";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // label1
             // 
@@ -282,7 +271,7 @@
             // 
             this.portBtn.Location = new System.Drawing.Point(1083, 184);
             this.portBtn.Name = "portBtn";
-            this.portBtn.Size = new System.Drawing.Size(75, 23);
+            this.portBtn.Size = new System.Drawing.Size(75, 35);
             this.portBtn.TabIndex = 12;
             this.portBtn.Text = "设置";
             this.portBtn.UseVisualStyleBackColor = true;
@@ -299,7 +288,7 @@
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(1080, 225);
+            this.button10.Location = new System.Drawing.Point(1080, 239);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(89, 37);
             this.button10.TabIndex = 14;
@@ -309,7 +298,7 @@
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(1081, 268);
+            this.button11.Location = new System.Drawing.Point(1081, 282);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(89, 37);
             this.button11.TabIndex = 15;
@@ -338,7 +327,6 @@
             this.Controls.Add(this.portBtn);
             this.Controls.Add(this.portText);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.statusStrip1);
@@ -380,7 +368,6 @@
         private System.Windows.Forms.ToolStripStatusLabel clearTime;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox portText;
         private System.Windows.Forms.Button portBtn;
