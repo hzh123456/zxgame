@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/Administrator/Desktop/志鑫手游/志鑫手游.apk
+E:/桌面文件夹/志鑫手游/志鑫手游.apk
 SceneListBegin?
 Assets/Scenes/login.unity
 Assets/Scenes/index.unity

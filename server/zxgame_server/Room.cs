@@ -182,7 +182,7 @@ namespace zxgame_server
         }
 
         //复盘的字符串
-        public string FuPan = "FuPan|昨夜神牌操作如下：\r\n";
+        public string FuPan = "FuPan|\r\n昨夜神牌操作如下：\r\n";
 
         public string RetrunFuPan()
         {
@@ -216,8 +216,8 @@ namespace zxgame_server
                     {
                         j = new Random().Next(0, 3);
                     }
-                    FuPan += GetZuoWeiByShenfen("预言家")+"号： 预言家查看了两张底牌为：" + shenfen[shenfen.Count - 1 - i] + "," + shenfen[shenfen.Count - 1 - j] + "\r\n";
-                    lookshenfen = "两张底牌为:"+shenfen[shenfen.Count-1-i] + "," + shenfen[shenfen.Count-1-j]+"\r\n";
+                    FuPan += GetZuoWeiByShenfen("预言家")+"号： 预言家查看了两张底牌为：" + shenfen[shenfen.Count - i] + "," + shenfen[shenfen.Count - j] + "\r\n";
+                    lookshenfen = "两张底牌为:"+shenfen[shenfen.Count - i] + "," + shenfen[shenfen.Count - j]+"\r\n";
                 }
                 else
                 {//预言家选择查看一名玩家身份
@@ -336,12 +336,11 @@ namespace zxgame_server
                 }
             }
             if (ChangeWolfIndex>0)
-            {  
-                SendMsg("changewolf", players[ChangeWolfIndex].username);
-                ShowText.Text = ChangeWolfIndex + "号被交换 发送消息成功\r\n";
+            {
+                SendMsg("changewolf|狼王将你变为狼人，请帮助狼人获胜！\r\n", players[ChangeWolfIndex].username);
             }
 
-            SendMsg("Gaming",null);
+            SendMsg("请开始游戏，投票后房主点击查看结果按钮，查看最终结果！|请开始游戏，投票后房主点击查看结果按钮，查看最终结果！|Gaming\r\n", null);
         }
 
         //加入房间 

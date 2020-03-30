@@ -15,3 +15,4 @@ E:\zxgame\server\zxgame_server\obj\Debug\zxgame_server.exe.manifest
 E:\zxgame\server\zxgame_server\obj\Debug\zxgame_server.application
 E:\zxgame\server\zxgame_server\obj\Debug\zxgame_server.exe
 E:\zxgame\server\zxgame_server\obj\Debug\zxgame_server.pdb
+E:\zxgame\server\zxgame_server\obj\Debug\zxgame_server.csprojResolveAssemblyReference.cache

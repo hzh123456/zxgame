@@ -302,10 +302,6 @@ public class OneNightWolf : MonoBehaviour
         try
         {
             string msg = Server.socket.GetMsg();
-            if (!String.IsNullOrEmpty(msg) && msg != "wait")
-            {
-                Debug.Log(msg);
-            }
             if (!String.IsNullOrEmpty(msg) && msg == "QuitRoom")
             {
                 SceneManager.LoadScene(1);
@@ -314,16 +310,14 @@ public class OneNightWolf : MonoBehaviour
             {
                 StartCoroutine(updatetalk(msg));
             }
-            else if (!String.IsNullOrEmpty(msg) && msg=="wait")
-            {
-                StartCoroutine(updateroom());
-            }
             else if (!String.IsNullOrEmpty(msg) && msg.Contains("Quit"))
             {
+                StartCoroutine(updateroom());
                 StartCoroutine(updatetalk(msg));
             }
             else if (!String.IsNullOrEmpty(msg) && msg.Contains("Join"))
             {
+                StartCoroutine(updateroom());
                 StartCoroutine(updatetalk(msg));
             }
             else if (!String.IsNullOrEmpty(msg) && msg == "startGame")
@@ -331,13 +325,15 @@ public class OneNightWolf : MonoBehaviour
                 Quit.SetActive(false);
                 StartCoroutine(startGameIE2());
             }
-            else if (!String.IsNullOrEmpty(msg) && msg == "changewolf")
+            else if (!String.IsNullOrEmpty(msg) && msg.Contains("changewolf"))
             {
-                content.text += "狼王将你变为狼人，请帮助狼人获胜！\r\n";
+                string str = msg.Split('|')[1];
+                content.text += str;
             }
-            else if (!String.IsNullOrEmpty(msg) && msg == "Gaming")
+            else if (!String.IsNullOrEmpty(msg) && msg.Contains("Gaming"))
             {
-                content.text += "请开始游戏，投票后房主点击查看结果按钮，查看最终结果！\r\n";
+                string str = msg.Split('|')[1];
+                content.text += str;
             }
             else if (!String.IsNullOrEmpty(msg) && msg.Contains("skill"))
             {
