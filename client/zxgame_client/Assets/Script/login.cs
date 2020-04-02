@@ -86,7 +86,7 @@ public class login : MonoBehaviour {
                 Server.Connect(ports);
             }
         }
-        catch (MyException e)
+        catch
         {
             ShowOrHide1("连接超时");
         }

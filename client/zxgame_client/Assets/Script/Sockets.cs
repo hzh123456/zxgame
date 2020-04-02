@@ -112,7 +112,7 @@ public class Sockets {
                 clientSocket.Close();
             }
         }
-        catch(Exception e)
+        catch 
         {
             connected = false;
             clientSocket.Close();

@@ -113,7 +113,7 @@ namespace zxgame_server
             return index + 1;
         }
 
-        public Room(user fangzhu, Socket fangzhu_socket, int playernum, int RoomId, Form1 form1, Dictionary<int, string> shenfen)
+        public Room(user fangzhu, Socket fangzhu_socket, int playernum, int RoomId, Form1 form1, Dictionary<int, string> shenfen,int type)
         {
             ZuoWei = new bool[playernum];
             int index = GetNullZuoWei();
@@ -128,14 +128,22 @@ namespace zxgame_server
             this.RoomId = RoomId;
             this.Form = form1;
             this.style = false;
+            this.type = type;
             UseSkillNum = 0;
             CanUseSkillShenFen = 0;
-            for (int i = 0; i < playernum;i++ )
-            {
-                if (shenfen[i + 1] == "预言家" || shenfen[i + 1] == "盗贼" || shenfen[i + 1] == "小女孩" || shenfen[i + 1] == "狼王")
+            if(type==0)
+            {//一夜狼
+                for (int i = 0; i < playernum; i++)
                 {
-                    CanUseSkillShenFen++;
+                    if (shenfen[i + 1] == "预言家" || shenfen[i + 1] == "盗贼" || shenfen[i + 1] == "小女孩" || shenfen[i + 1] == "狼王")
+                    {
+                        CanUseSkillShenFen++;
+                    }
                 }
+            }
+            if (type == 1)
+            {//扇子狼人
+                CanUseSkillShenFen = playernum;
             }
             foreach(int indexx in shenfen.Keys)
             {
@@ -148,7 +156,7 @@ namespace zxgame_server
             }
         }
 
-        public void GameHandler(string shenfen, int[] index, RichTextBox ShowText)
+        public void GameHandler(string shenfen, int[] index)
         {
             try
             {
@@ -159,18 +167,24 @@ namespace zxgame_server
                     UseSkillNum++;
                     if (UseSkillNum == CanUseSkillShenFen)
                     {
-                        OneNightWolfSkilling(ShowText);
+                        OneNightWolfSkilling();
                     }
                 }
-                else if (type == 1)
+                else if (this.type == 1)
                 {
                     //扇子狼游戏处理
+                    UserSkill.Add(shenfen, index);
+                    UseSkillNum++;
+                    if (UseSkillNum == CanUseSkillShenFen)
+                    {
+                        shanziWolfSkilling();
+                    }
                 }
-                else if (type == 2)
+                else if (this.type == 2)
                 {
                     //新游戏1 游戏处理
                 }
-                else if (type == 3)
+                else if (this.type == 3)
                 {
                     //新游戏2 游戏处理
                 }
@@ -179,6 +193,184 @@ namespace zxgame_server
             {
                 MessageBox.Show(e.ToString());
             }
+        }
+
+        private void shanziWolfSkilling()
+        {
+            double[] PiaoShu = new double[playernum + 1];
+            int yuyanjia = -1;
+            int nvwu = -1;
+            int nvwutoupiao = -1; 
+            int lieren = -1;
+            int lierentoupiao = -1;
+            int baichi = -1;
+            int baichitoupiao = -1;
+            foreach(string sf in UserSkill.Keys)
+            {
+                int[] index = UserSkill[sf];
+                int zuowei = GetZuoWeiByShenfen(sf);
+                user user = players[zuowei];
+                int toupiao = index[0];
+                if (toupiao == -1)
+                {
+                    if(sf=="预言家")
+                    {
+                        yuyanjia = zuowei;
+                    }
+                    FuPan += zuowei + "号 " + user.lastname + "： 选择翻牌\r\n";
+                }
+                else
+                {
+                    if (sf == "预言家")
+                    {
+                        PiaoShu[toupiao]++;
+                    }
+                    if (sf == "女巫")
+                    {
+                        nvwu = zuowei;
+                        nvwutoupiao = toupiao;
+                        PiaoShu[toupiao]++;
+                    }
+                    else if (sf == "猎人")
+                    {
+                        lieren = zuowei;
+                        lierentoupiao = toupiao;
+                        PiaoShu[toupiao]++;
+                    }
+                    else if (sf == "白痴")
+                    {
+                        baichi = zuowei;
+                        baichitoupiao = toupiao;
+                        PiaoShu[toupiao]++;
+                    }
+                    else if (sf.Contains("狼人") || sf.Contains("平民"))
+                    {
+                        PiaoShu[toupiao]++;
+                    }
+                    else if(sf == "警长" || sf=="狼王")
+                    {
+                        PiaoShu[toupiao]+=1.5;
+                    }
+                    FuPan += zuowei + "号 " + user.lastname + " " + sf + "： 选择投票" + toupiao + "号 " + players[toupiao].lastname + "\r\n";
+                }
+            }
+            bool flag = true;
+            if(yuyanjia>0)
+            {
+                flag = false;
+                user user = players[yuyanjia];
+                FuPan += yuyanjia + "号 " + user.lastname + "： 预言家翻牌成功！预言家单独胜利！\r\n";
+            }
+            if (nvwu > 0 && PiaoShu[nvwutoupiao] == 1 && yuyanjia<0)
+            {
+                flag = false;
+                user user = players[nvwu];
+                FuPan += nvwu + "号 " + user.lastname + "： 女巫选择投票的玩家只有一票！女巫胜利！\r\n";
+            }
+            if (lieren > 0 && yuyanjia < 0)
+            {
+                double max = -1;
+                for (int i = 1; i < PiaoShu.Length;i++ )
+                {
+                    if (max < PiaoShu[i])
+                    {
+                        max = PiaoShu[i];
+                    }
+                }
+                for (int i = 1; i < PiaoShu.Length;i++ )
+                {
+                    if (max == PiaoShu[i])
+                    {
+                        max = PiaoShu[i];
+                        if(lierentoupiao==i)
+                        {
+                            flag = false;
+                            user user = players[lieren];
+                            FuPan += lieren + "号 " + user.lastname + "： 猎人选择投票最高的玩家！猎人胜利！\r\n";
+                            break;
+                        }
+                    }
+                }
+            }
+            if (baichi > 0 && baichitoupiao == baichi && yuyanjia < 0)
+            {
+                flag = false;
+                user user = players[baichi];
+                FuPan += yuyanjia + "号 " + user.lastname + "： 白痴选择投票给自己！白痴胜利！\r\n";
+            }
+            if (flag)
+            {
+                bool pingmin = true;
+                bool langren = true;
+                foreach(int index in shenfen.Keys)
+                {
+                    if(shenfen[index].Contains("平民") || shenfen[index]=="警长")
+                    {
+                        pingmin = false;
+                    }
+                    if (shenfen[index].Contains("狼人") || shenfen[index] == "狼王")
+                    {
+                        langren = false;
+                    }
+                    if(!pingmin && !langren)
+                    {
+                        break;
+                    }
+                }
+                if(pingmin)
+                {
+                    FuPan += "因为没有狼人存在，且独立阵营未获胜，平民胜利！\r\n";
+                }
+                else if(langren)
+                {
+                    FuPan += "因为没有平民存在，且独立阵营未获胜，狼人胜利！\r\n";
+                }
+                else
+                {
+                    double max = -1;
+                    for (int i = 1; i < PiaoShu.Length; i++)
+                    {
+                        if (max < PiaoShu[i])
+                        {
+                            max = PiaoShu[i];
+                        }
+                    }
+                    List<int> maxpiaoshuPlayer = new List<int>();
+                    for (int i = 1; i < PiaoShu.Length; i++)
+                    {
+                        if (max == PiaoShu[i])
+                        {
+                            maxpiaoshuPlayer.Add(i);
+                        }
+                    }
+                    bool maxpiaoshuPingmin = false;
+                    bool maxpiaoshuLangren = false;
+                    foreach(int index in maxpiaoshuPlayer)
+                    {
+                        if (shenfen[index].Contains("狼人") || shenfen[index] == "狼王")
+                        {
+                            maxpiaoshuLangren = true;
+                        }
+                        else if (shenfen[index].Contains("平民") || shenfen[index] == "警长")
+                        {
+                            maxpiaoshuPingmin = true;
+                        }
+                    }
+                    if (maxpiaoshuLangren && maxpiaoshuPingmin)
+                    {
+                        FuPan += "因为独立阵营未获胜，且被投票的狼人与被投票的平民票数相等，双方阵营都失败！\r\n";
+                    }
+                    else if (maxpiaoshuLangren)
+                    {
+                        FuPan += "因为独立阵营未获胜，且被投票的狼人票数最多，平民阵营胜利！\r\n";
+                    }
+                    else if (maxpiaoshuPingmin)
+                    {
+                        FuPan += "因为独立阵营未获胜，且被投票的平民票数最多，狼人阵营胜利！\r\n";
+                    }
+                }
+            }
+            SendMsg(FuPan, null);
         }
 
         //复盘的字符串
@@ -190,7 +382,7 @@ namespace zxgame_server
             FuPan += "\r\n最终身份如下：\r\n\r\n";
             foreach(int t in FinalShenFen.Keys)
             {
-                FuPan += t+"号："+FinalShenFen[t]+"\r\n";
+                FuPan += t+"号 "+ players[t].lastname +"："+FinalShenFen[t]+"\r\n";
                 i++;
                 if(i==playernum)
                 {
@@ -201,7 +393,7 @@ namespace zxgame_server
             return FuPan;
         }
 
-        public void OneNightWolfSkilling(RichTextBox ShowText)
+        public void OneNightWolfSkilling()
         {
             int[] index;
             int ChangeWolfIndex = -1;
@@ -216,12 +408,12 @@ namespace zxgame_server
                     {
                         j = new Random().Next(0, 3);
                     }
-                    FuPan += GetZuoWeiByShenfen("预言家")+"号： 预言家查看了两张底牌为：" + shenfen[shenfen.Count - i] + "," + shenfen[shenfen.Count - j] + "\r\n";
+                    FuPan += GetZuoWeiByShenfen("预言家")+"号 "+ players[GetZuoWeiByShenfen("预言家")].lastname +"： 预言家查看了两张底牌为：" + shenfen[shenfen.Count - i] + "," + shenfen[shenfen.Count - j] + "\r\n";
                     lookshenfen = "两张底牌为:"+shenfen[shenfen.Count - i] + "," + shenfen[shenfen.Count - j]+"\r\n";
                 }
                 else
                 {//预言家选择查看一名玩家身份
-                    FuPan += GetZuoWeiByShenfen("预言家")+"号： 预言家查看" + index[0] + "号玩家身份：" + shenfen[index[0]] + "\r\n";
+                    FuPan += GetZuoWeiByShenfen("预言家") + "号 " + players[GetZuoWeiByShenfen("预言家")].lastname + "： 预言家查看" + index[0] + "号玩家身份：" + shenfen[index[0]] + "\r\n";
                     lookshenfen = "他的身份是" + shenfen[index[0]] + "\r\n";
                 }
                 SendMsg("skill|"+lookshenfen,players[GetZuoWeiByShenfen("预言家")].username);
@@ -231,7 +423,7 @@ namespace zxgame_server
                 string msg = "";
                 FinalShenFen[index[0]] = "狼人";
                 msg = index[0] + "号玩家被变成狼人\r\n";
-                FuPan += GetZuoWeiByShenfen("狼王")+"号： 狼王选择" + index[0] + "号玩家变为狼人\r\n";
+                FuPan += GetZuoWeiByShenfen("狼王") + "号 " + players[GetZuoWeiByShenfen("狼王")].lastname + "： 狼王选择" + index[0] + "号玩家变为狼人\r\n";
                 SendMsg("skill|" + msg, players[GetZuoWeiByShenfen("狼王")].username);
                 ChangeWolfIndex = index[0];
             }
@@ -239,10 +431,10 @@ namespace zxgame_server
             {//酒鬼选择一张底牌，变为这张底牌
                 string msg = "";
                 int i = new Random().Next(0, 3);
-                string newshenfen = shenfen[shenfen.Count - 1 - i];
+                string newshenfen = shenfen[shenfen.Count - i];
                 FinalShenFen[index[0]] = newshenfen;
                 msg = "你查看的底牌为：" + newshenfen + "\r\n";
-                FuPan += GetZuoWeiByShenfen("酒鬼")+"号： 酒鬼变形的底牌为：" + newshenfen + "\r\n";
+                FuPan += GetZuoWeiByShenfen("酒鬼") + "号 " + players[GetZuoWeiByShenfen("酒鬼")].lastname + "： 酒鬼变形的底牌为：" + newshenfen + "\r\n";
                 SendMsg("skill|" + msg, players[GetZuoWeiByShenfen("酒鬼")].username);
             }
             if (UserSkill.TryGetValue("盗贼", out index))
@@ -251,7 +443,7 @@ namespace zxgame_server
                 string newshenfen = FinalShenFen[index[1]];
                 FinalShenFen[index[0]] = newshenfen;
                 FinalShenFen[index[1]] = oldshenfen;
-                FuPan += GetZuoWeiByShenfen("盗贼")+"号： 盗贼交换的身份为：" + newshenfen + "\r\n";
+                FuPan += GetZuoWeiByShenfen("盗贼") + "号 " + players[GetZuoWeiByShenfen("盗贼")].lastname + "： 盗贼交换的身份为：" + newshenfen + "\r\n";
                 SendMsg("skill|你交换的身份为：" + newshenfen + "\r\n", players[GetZuoWeiByShenfen("盗贼")].username);
             }
             if (UserSkill.TryGetValue("小女孩", out index))
@@ -260,7 +452,7 @@ namespace zxgame_server
                 string newshenfen = FinalShenFen[index[1]];
                 FinalShenFen[index[0]] = newshenfen;
                 FinalShenFen[index[1]] = oldshenfen;
-                FuPan += GetZuoWeiByShenfen("小女孩")+"号： 小女交换的两名玩家为： " + index[0] + "号：" + oldshenfen + " ， " + index[1] + "号：" + newshenfen + " \r\n";
+                FuPan += GetZuoWeiByShenfen("小女孩") + "号 " + players[GetZuoWeiByShenfen("小女孩")].lastname + "： 小女交换的两名玩家为： " + index[0] + "号：" + oldshenfen + " ， " + index[1] + "号：" + newshenfen + " \r\n";
                 SendMsg("skill|" + index[0] + "号与" + index[1] + "号" + "交换成功\r\n", players[GetZuoWeiByShenfen("小女孩")].username);
             }
             int indexx;
@@ -278,8 +470,7 @@ namespace zxgame_server
                 }
                 if(indexx<=playernum)
                 {
-                    FuPan += GetZuoWeiByShenfen("守夜人")+"号： 守夜人的状态为：" + msg + "\r\n";
-                    ShowText.Text = msg + " 守夜人\r\n";
+                    FuPan += GetZuoWeiByShenfen("守夜人") + "号 " + players[GetZuoWeiByShenfen("守夜人")].lastname + "： 守夜人的状态为：" + msg + "\r\n";
                     SendMsg("skill|你的状态是：" + msg + "\r\n", players[GetZuoWeiByShenfen("守夜人")].username);
                 }
             }
@@ -288,10 +479,20 @@ namespace zxgame_server
             int wolf1 = -1;
             int wolf2 = -1;
             int num = 0;
+            bool isZhaoYa = false;
+            foreach (int shenfens in shenfen.Keys)
+            {
+                if (shenfen[shenfens] == "爪牙")
+                {
+                    isZhaoYa = true;
+                    break;
+                }
+            }
             foreach(int shenfens in shenfen.Keys)
             {
                 if (shenfen[shenfens].Contains("狼人") || shenfen[shenfens] == "爪牙" )
                 {
+                    
                     if(wolf1<0)
                     {
                         wolf1 = shenfens;
@@ -310,27 +511,38 @@ namespace zxgame_server
             }
             if (wolfnum == 1)
             {
-                int i = new Random().Next(0, 3);
-                string lookshenfen = shenfen[shenfen.Count - 1 - i];
-                FuPan += wolf1+"号： 单狼查看一张底牌：" + lookshenfen + "\r\n";
-                SendMsg("skill|单狼查看一张底牌：" + lookshenfen + "\r\n", players[wolf1].username);
+                if (shenfen[wolf1] == "爪牙")
+                {
+                    int i = new Random().Next(0, 3);
+                    string lookshenfen = shenfen[shenfen.Count - i];
+                    FuPan += wolf1 + "号 " + players[wolf1].lastname + "： 单狼查看一张底牌：" + lookshenfen + "\r\n";
+                    SendMsg("skill|单狼查看一张底牌：" + lookshenfen + "\r\n", players[wolf1].username);
+                }
+                if (shenfen[wolf1] != "爪牙" && !isZhaoYa)
+                {
+                    int i = new Random().Next(0, 3);
+                    string lookshenfen = shenfen[shenfen.Count - i];
+                    FuPan += wolf1 + "号 " + players[wolf1].lastname + "： 单狼查看一张底牌：" + lookshenfen + "\r\n";
+                    SendMsg("skill|单狼查看一张底牌：" + lookshenfen + "\r\n", players[wolf1].username);
+                }
+                
             }
             else if(wolfnum > 1)
             {
                 if (shenfen[wolf1] == "爪牙")
                 {
-                    FuPan += wolf1 + "号： 爪牙查看的队友是：" + wolf2 + "\r\n";
+                    FuPan += wolf1 + "号 " + players[wolf1].lastname + "： 爪牙查看的队友是：" + wolf2 + "\r\n";
                     SendMsg("skill|你的狼队友是：" + wolf2 + "号\r\n", players[wolf1].username);
                 }
                 else if (shenfen[wolf2] == "爪牙")
                 {
-                    FuPan += wolf2 + "号： 爪牙查看的队友是：" + wolf1 + "\r\n";
+                    FuPan += wolf2 + "号 " + players[wolf2].lastname + "： 爪牙查看的队友是：" + wolf1 + "\r\n";
                     SendMsg("skill|你的狼队友是：" + wolf1 + "号\r\n", players[wolf2].username);
                 }
                 else
                 {
-                    FuPan += wolf1 + "号： 查看的队友是：" + wolf2 + "\r\n";
-                    FuPan += wolf2 + "号： 查看的队友是：" + wolf1 + "\r\n";
+                    FuPan += wolf1 + "号 " + players[wolf1].lastname + "： 查看的队友是：" + wolf2 + "\r\n";
+                    FuPan += wolf2 + "号 " + players[wolf2].lastname + "： 查看的队友是：" + wolf1 + "\r\n";
                     SendMsg("skill|你的狼队友是：" + wolf1 + "号\r\n", players[wolf2].username);
                     SendMsg("skill|你的狼队友是：" + wolf2 + "号\r\n", players[wolf1].username);
                 }
@@ -339,8 +551,8 @@ namespace zxgame_server
             {
                 SendMsg("changewolf|狼王将你变为狼人，请帮助狼人获胜！\r\n", players[ChangeWolfIndex].username);
             }
-
-            SendMsg("请开始游戏，投票后房主点击查看结果按钮，查看最终结果！|请开始游戏，投票后房主点击查看结果按钮，查看最终结果！|Gaming\r\n", null);
+            int TalkNum = new Random().Next(1, playernum+1);
+            SendMsg("请开始游戏，投票后房主点击查看结果按钮，查看最终结果！\r\n请" + TalkNum + "号玩家先发言！|请开始游戏，投票后房主点击查看结果按钮，查看最终结果！\r\n请" + TalkNum + "号玩家先发言！\r\n\r\n|Gaming", null);
         }
 
         //加入房间 
@@ -355,11 +567,27 @@ namespace zxgame_server
 
         public void StartGame()
         {
-            SendMsg("startGame", null);
-            if (CanUseSkillShenFen == 0)
+            if(type==0)
             {
-                SendMsg("Gaming", null);
+                SendMsg("startGame", null);
+                if (CanUseSkillShenFen == 0)
+                {
+                    SendMsg("Gaming", null);
+                }
             }
+            if (type == 1)
+            {
+                SendMsg("startGame", null);
+                int TalkNum = new Random().Next(1, playernum + 1);
+                SendMsg("请" + TalkNum + "号玩家先发言！\r\n当所有人发言完毕后，玩家选择翻牌或点击其他玩家头像投票！\r\n\r\n|请" + TalkNum + "号玩家先发言！\r\n当所有人发言完毕后，玩家选择翻牌或点击其他玩家头像投票！\r\n\r\n|Gaming", null);
+            }
+            if (type == 2)
+            {
+            }
+            if (type == 3)
+            {
+            }
+            
         }
 
         //房间信息
@@ -379,7 +607,7 @@ namespace zxgame_server
         {
             if (String.IsNullOrEmpty(username))
             {
-                SendMsg("QuitRoom",null);
+                SendMsg("QuitRoom", null);
             }
             else
             {

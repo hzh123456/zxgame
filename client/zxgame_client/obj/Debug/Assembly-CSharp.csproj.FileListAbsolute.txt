@@ -326,3 +326,9 @@ E:\zxgame\client\zxgame_client\Temp\bin\Debug\UnityEngine.HoloLens.xml
 E:\zxgame\client\zxgame_client\Temp\bin\Debug\UnityEngine.SpatialTracking.xml
 E:\zxgame\client\zxgame_client\Temp\bin\Debug\UnityEngine.ClusterInputModule.xml
 E:\zxgame\client\zxgame_client\Temp\bin\Debug\UnityEngine.ClusterRendererModule.xml
+E:\zxgame\client\zxgame_client\Temp\bin\Debug\Editor.dll
+E:\zxgame\client\zxgame_client\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
+E:\zxgame\client\zxgame_client\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
+E:\zxgame\client\zxgame_client\Temp\bin\Debug\UnityEditor.StandardEvents.dll
+E:\zxgame\client\zxgame_client\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
+E:\zxgame\client\zxgame_client\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.xml

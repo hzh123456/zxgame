@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="zxgame_server.exe" size="458240">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="zxgame_server.exe" size="463360">
       <assemblyIdentity name="zxgame_server" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mJnyhH1nLXlGI0wj1guiZuXxPT9IJF5gWi4bsZnUr1c=</dsig:DigestValue>
+        <dsig:DigestValue>rcCZxX+th0Ka1x51e+Mz8YEzgDte2QY0QrvuqnQplfA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

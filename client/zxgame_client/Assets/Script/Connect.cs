@@ -11,7 +11,7 @@ public class Connect : MonoBehaviour {
 
     private float time;
 
-    public Dropdown dropDown;
+    public Dropdown[] dropDown;
 
     public GameObject ShowPanel;
     public Text Msg;
@@ -87,7 +87,11 @@ public class Connect : MonoBehaviour {
                             SceneManager.LoadScene(2);
                             break;
                         case 1:
-                            ShowMsg("还未开发，敬请期待");
+                            string msg1 = Command.JoinGame(Server.username, roomid, Server.lastname);
+                            StartCoroutine(SendMsg(msg1));
+                            Server.roomid = roomid.ToString();
+                            Server.IsFangZhu = false;
+                            SceneManager.LoadScene(3);
                             break;
                         case 2:
                             ShowMsg("还未开发，敬请期待");
@@ -129,7 +133,7 @@ public class Connect : MonoBehaviour {
                             npcs.Add(toggle);
                         }
                     }
-                    bool flag = int.TryParse(dropDown.value.ToString(), out num);
+                    bool flag = int.TryParse(dropDown[index].value.ToString(), out num);
                     num += 4;
                     if (!flag)
                     {
@@ -198,7 +202,17 @@ public class Connect : MonoBehaviour {
 
                     break;
                 case 1:
-                    ShowMsg("还未开发，敬请期待");
+                    int num1 = -5;
+                    bool flag1 = int.TryParse(dropDown[index].value.ToString(), out num1);
+                    if (!flag1)
+                    {
+                        ShowMsg("人数转换错误！");
+                    }
+                    else
+                    {
+                        num1 += 4;
+                        StartCoroutine(CreateGameIE(Server.username, num1, index, Server.lastname, null));
+                    }
                     break;
                 case 2:
                     ShowMsg("还未开发，敬请期待");
@@ -237,7 +251,22 @@ public class Connect : MonoBehaviour {
             }
             if (f)
             {
-                SceneManager.LoadScene(2);
+                switch (index)
+                {
+                    case 0:
+                        SceneManager.LoadScene(2);
+                        break;
+                    case 1:
+                        SceneManager.LoadScene(3);
+                        break;
+                    case 2:
+                        SceneManager.LoadScene(4);
+                        break;
+                    case 3:
+                        SceneManager.LoadScene(5);
+                        break;
+                }
+                
             }        
         }
         catch (Exception e)

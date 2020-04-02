@@ -45,15 +45,13 @@ public class OneNightWolf : MonoBehaviour
         yield return new WaitForSeconds(0);
     }
 
-    private int lastreadplayernum = -1;
-
     // Use this for initialization
     void Start()
     {
         try
         {
             StartCoroutine(ShowView(Server.playernum));
-            content.text += Server.lastname + "加入房间\r\n";
+            content.text += "一夜狼，房间号：" + Server.roomid + "\r\n<color=#FFFFFF>" + Server.lastname + "加入房间</color>\r\n";
         }
         catch
         {
@@ -93,41 +91,32 @@ public class OneNightWolf : MonoBehaviour
                         break;
                     }
                     else if (msg.Contains("roomInfo"))
-                    {
+                    { 
                         string[] roomInfos = msg.Split('|');
-                        realplayernum = roomInfos.Length - 2;
-                        if (realplayernum != lastreadplayernum)
+                        int playnum = int.Parse(roomInfos[roomInfos.Length - 1]);
+                        for (int i = 0; i < playnum; i++)
                         {
-                            lastreadplayernum = realplayernum;
-                            int playnum = int.Parse(roomInfos[roomInfos.Length - 1]);
-                            for (int i = 0; i < playnum; i++)
-                            {
-                                players[i].enabled = true;
-                                players[i].image.sprite = img[1];
-                                players[i].GetComponentsInChildren<Text>()[0].text = "等待中";
-                                players[i].GetComponentsInChildren<Text>()[1].text = "";
-                            }
-
-                            for (int i = 0; i < roomInfos.Length - 2; i++)
-                            {
-                                string[] user = roomInfos[i].Split(',');
-                                players[i].image.sprite = img[0];
-                                players[i].GetComponentsInChildren<Text>()[0].text = user[1];
-                                players[i].GetComponentsInChildren<Text>()[1].text = (i + 1).ToString();
-
-                                if (user[0] == Server.username)
-                                {
-                                    Server.shenfen = user[2];
-                                    players[i].enabled = false;
-                                    Server.ZuoWei = i + 1;
-                                }
-                            }
-                            break;
+                            players[i].enabled = true;
+                            players[i].image.sprite = img[1];
+                            players[i].GetComponentsInChildren<Text>()[0].text = "等待中";
+                            players[i].GetComponentsInChildren<Text>()[1].text = "";
                         }
-                        else
+
+                        for (int i = 0; i < roomInfos.Length - 2; i++)
                         {
-                            break;
+                            string[] user = roomInfos[i].Split(',');
+                            players[i].image.sprite = img[0];
+                            players[i].GetComponentsInChildren<Text>()[0].text = user[1];
+                            players[i].GetComponentsInChildren<Text>()[1].text = (i + 1).ToString();
+
+                            if (user[0] == Server.username)
+                            {
+                                Server.shenfen = user[2];
+                                players[i].enabled = false;
+                                Server.ZuoWei = i + 1;
+                            }
                         }
+                        break;
                         
                     }
                 }
@@ -185,7 +174,7 @@ public class OneNightWolf : MonoBehaviour
         }
         else
         {
-            content.text += "玩家人数不足，无法开始游戏！";
+            content.text += "玩家人数不足，无法开始游戏！\r\n";
         }
     }
 
@@ -342,6 +331,7 @@ public class OneNightWolf : MonoBehaviour
             }
             else if (!String.IsNullOrEmpty(msg) && msg.Contains("FuPan"))
             {
+                Quit.SetActive(true);
                 string str = msg.Split('|')[1];
                 content.text += str;
             }
@@ -355,39 +345,47 @@ public class OneNightWolf : MonoBehaviour
     {
         roomstatus = 1;
         content.text += "游戏开始，你的身份是：";
+        if (Server.shenfen == "爪牙")
+        {
+            content.text += "<color=#FF3030>爪牙</color>\r\n";
+        }
+        if (Server.shenfen == "酒鬼")
+        {
+            content.text += "<color=#FF3030>酒鬼</color>\r\n";
+        }
         if (Server.shenfen == "预言家")
         {
-            content.text += "预言家\r\n";
+            content.text += "<color=#FF3030>预言家</color>\r\n";
             Look2DiPai.SetActive(true);
             content.text += "点击玩家查看身份，或点击查看两张底牌\r\n";
         }
         else if (Server.shenfen == "狼王") 
         {
-            content.text += "狼王\r\n";
+            content.text += "<color=#FF3030>狼王</color>\r\n";
             content.text += "选择一名玩家变为狼人\r\n";
         }
         else if (Server.shenfen == "盗贼")
         {
-            content.text += "盗贼\r\n";
+            content.text += "<color=#FF3030>盗贼</color>\r\n";
             content.text += "选择一名玩家交换身份\r\n";
         }
         else if (Server.shenfen == "小女孩")
         {
-            content.text += "小女孩\r\n";
-            content.text += "选择二名玩家互换身份\r\n";
+            content.text += "<color=#FF3030>小女孩</color>\r\n";
+            content.text += "选择两名玩家互换身份\r\n";
         }
         else if (Server.shenfen.Contains("平民"))
         {
-            content.text += "平民\r\n";
-            content.text += "请帮助好人找出狼人\r\n";
+            content.text += "<color=#FF3030>平民</color>\r\n";
+            content.text += "请帮助好人找出狼人！\r\n";
         }
         else if (Server.shenfen.Contains("狼人"))
         {
-            content.text += "狼人\r\n";
+            content.text += "<color=#FF3030>狼人</color>\r\n";
         }
         else if (Server.shenfen == "守夜人")
         {
-            content.text += "守夜人\r\n";
+            content.text += "<color=#FF3030>守夜人</color>\r\n";
         }
         content.text += "\r\n====等待其他玩家发动技能====\r\n\r\n";
         yield return new WaitForSeconds(0);
@@ -400,15 +398,15 @@ public class OneNightWolf : MonoBehaviour
             string[] data = msg.Split('|')[1].Split(',');
             if (msg.Contains("msg"))
             {
-                content.text += data[0] + "：" + data[1] + "\r\n";
+                content.text += "<color=#FFFFFF>" + data[0] + "：" + data[1] + "</color>\r\n";
             }
             else if (msg.Contains("Quit"))
             {
-                content.text += data[1] + "退出房间\r\n";
+                content.text += "<color=#FFFFFF>" + data[1] + "退出房间</color>\r\n";
             }
             else if (msg.Contains("Join"))
             {
-                content.text += data[1] + "加入房间\r\n";
+                content.text += "<color=#FFFFFF>" + data[1] + "加入房间</color>\r\n";
             }
             
         }

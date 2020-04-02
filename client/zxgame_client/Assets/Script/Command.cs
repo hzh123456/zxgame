@@ -16,9 +16,12 @@ namespace Assets.Script
         public static string CreateRoom(string creater, int playnum, int type, int style,string lastname,List<string> shenfen)
         {
             string str = "create|" + creater + "," + playnum + "," + type + "," + style+","+lastname+",";
-            foreach(string s in shenfen)
+            if(shenfen!=null)
             {
-                str += s + ".";
+                foreach (string s in shenfen)
+                {
+                    str += s + ".";
+                }
             }
             return str.Substring(0,str.Length-1);
         }

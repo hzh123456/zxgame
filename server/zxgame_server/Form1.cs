@@ -145,7 +145,9 @@ namespace zxgame_server
                     int roomid;
                     f = HZHUtils.GetRoomId(data[0], out roomid);
                     ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n" + roomid + "：创建房间操作，房间号：" + roomid + "，成功\r\n";
-                    List<string> shenfen = new List<string>();
+                    if (int.Parse(data[2]) == 0)//创建一夜狼房间
+                    {
+                        List<string> shenfen = new List<string>();
                         string[] shenfens = data[5].Split('.');
                         foreach (string str in shenfens)
                         {
@@ -170,10 +172,48 @@ namespace zxgame_server
                         {
                             shenfenss.Add(ii++, strss);
                         }
-                        Room room = new Room(new user(data[0], data[4]), client_socket, int.Parse(data[1]), roomid, this, shenfenss);
+                        Room room = new Room(new user(data[0], data[4]), client_socket, int.Parse(data[1]), roomid, this, shenfenss, 0);
                         rooms.Add(roomid, room);
-                        ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n系统：" + rooms[roomid].RoomInfo()+ "\r\n";
-                        SendMsg(roomid.ToString(), client_socket);
+                    }
+                    else if (int.Parse(data[2]) == 1)//创建扇子狼房间
+                    {
+                        List<string> shenfen = new List<string>();
+                        shenfen.Add("警长");
+                        shenfen.Add("狼王");
+                        shenfen.Add("预言家");
+                        shenfen.Add("女巫");
+                        shenfen.Add("猎人");
+                        shenfen.Add("白痴");
+                        shenfen = HZHUtils.DaLuanList<string>(shenfen);
+                        List<string> Finalshenfen = new List<string>();
+                        for (int i = 0; i < 3; i++ )
+                        {
+                            Finalshenfen.Add(shenfen[i]);
+                        }
+                        Finalshenfen.Add("狼人1");
+                        Finalshenfen.Add("狼人2");
+                        Finalshenfen.Add("狼人3");
+                        Finalshenfen.Add("平民1");
+                        Finalshenfen.Add("平民2");
+                        Finalshenfen.Add("平民3");
+                        Finalshenfen = HZHUtils.DaLuanList<string>(Finalshenfen);
+                        int ii = 1;
+                        Dictionary<int, string> shenfenss = new Dictionary<int, string>();
+                        foreach (string strss in Finalshenfen)
+                        {
+                            shenfenss.Add(ii++, strss);
+                        }
+                        Room room = new Room(new user(data[0], data[4]), client_socket, int.Parse(data[1]), roomid, this, shenfenss, 1);
+                        rooms.Add(roomid, room);
+                    }
+                    else if (int.Parse(data[2]) == 2)//创建新游戏1房间
+                    {
+                    }
+                    else if (int.Parse(data[2]) == 3)//创建新游戏2房间
+                    {
+                    }
+                    ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n系统：" + rooms[roomid].RoomInfo()+ "\r\n";
+                    SendMsg(roomid.ToString(), client_socket);
                     break;
                 //用户能否登录消息处理
                 case "Isjoin":
@@ -193,7 +233,6 @@ namespace zxgame_server
                     int roomidid = int.Parse(data[1]);
                     if (f2 == -1)
                     {
-                        ShowText.Text += ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "RoomId:" + f2;
                         rooms[roomidid].QuitRoom(data[0]);
                         ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n" + index + "：退出房间操作，状态：房间成员\r\n";
 
@@ -208,7 +247,7 @@ namespace zxgame_server
                 //房间信息消息处理
                 case "RoomInfo":
                     int room_id = int.Parse(data[0]);
-                    //ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n系统：" + rooms[room_id].RoomInfo() + "\r\n";
+                    ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n系统：" + rooms[room_id].RoomInfo() + "\r\n";
                     SendMsg(rooms[room_id].RoomInfo(), client_socket);
                     break;
 
@@ -225,12 +264,13 @@ namespace zxgame_server
                     }
                     else
                     {
-                        ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n系统：房间号：" + room_id1 + "，游戏开始s失败\r\n";
+                        ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n系统：房间号：" + room_id1 + "，游戏开始失败\r\n";
                     }
                     ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n系统："+rooms[room_id1].RoomInfo()+"\r\n";
                     break;
 
-                //游戏内容消息处理 game|预言家,1 or game|预言家,-1 or game|小女孩,2.3
+                //一夜狼游戏内容消息处理 game|预言家,1 or game|预言家,-1 or game|小女孩,2.3
+                //扇子狼游戏内容消息处理 game|预言家,1 or game|预言家,-1 or game|平民,3 or game|平民,-1
                 case "game":
                     int room_id2 = int.Parse(data[1]);
                     Room room2 = rooms[room_id2];
@@ -242,8 +282,7 @@ namespace zxgame_server
                     {
                         index22[j++] = int.Parse(str);
                     }
-                    ShowText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n系统：" + shenfen2+":"+index22 + "\r\n";
-                    room2.GameHandler(shenfen2, index22, ShowText);
+                    room2.GameHandler(shenfen2, index22);
                     break;
                 //游戏结束消息处理 endGame|1
                 case "endGame":
@@ -402,8 +441,9 @@ namespace zxgame_server
                     }
                     
                 }
-                catch(Exception e)
+                catch
                 {
+                    return;
                     //userText.Text += DateTime.Now.ToLocalTime().ToString() + "：\r\n错误信息：" + e.ToString() + "\r\n";
                 }
             }

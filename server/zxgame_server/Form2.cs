@@ -118,7 +118,7 @@ namespace zxgame_server
         {
             if (flag)
             {
-                SendMsg("login|hzh,123456");
+                SendMsg("join|hzh,"+roomid.Text+",黄志濠");
             }
             else
             {
@@ -130,7 +130,7 @@ namespace zxgame_server
         {
             if (flag)
             {
-                SendMsg("login|hzh,12345");
+                SendMsg("Quitroom|"+username.Text+","+roomid.Text);
             }
             else
             {

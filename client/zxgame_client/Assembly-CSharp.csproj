@@ -60,6 +60,7 @@
      <Compile Include="Assets\Script\MyException.cs" />
      <Compile Include="Assets\Script\OneNightWolf.cs" />
      <Compile Include="Assets\Script\Server.cs" />
+     <Compile Include="Assets\Script\shanziWolf.cs" />
      <Compile Include="Assets\Script\Sockets.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

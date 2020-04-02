@@ -35,6 +35,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.username = new System.Windows.Forms.TextBox();
+            this.roomid = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -74,7 +76,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(140, 44);
             this.button4.TabIndex = 4;
-            this.button4.Text = "登录测试（失败）";
+            this.button4.Text = "退出房间测试";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -99,11 +101,27 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // username
+            // 
+            this.username.Location = new System.Drawing.Point(61, 79);
+            this.username.Name = "username";
+            this.username.Size = new System.Drawing.Size(100, 25);
+            this.username.TabIndex = 7;
+            // 
+            // roomid
+            // 
+            this.roomid.Location = new System.Drawing.Point(61, 110);
+            this.roomid.Name = "roomid";
+            this.roomid.Size = new System.Drawing.Size(100, 25);
+            this.roomid.TabIndex = 7;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(511, 330);
+            this.Controls.Add(this.roomid);
+            this.Controls.Add(this.username);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -115,6 +133,7 @@
             this.Text = "客户端测试";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -126,5 +145,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox username;
+        private System.Windows.Forms.TextBox roomid;
     }
 }

@@ -57,7 +57,6 @@ public static class Server {
     public static string SendRequestGetResponse(string RequestUrl, string Params)
     {
         HttpWebRequest HWRequest = null;
-        string NewUrl = string.Empty;
         string RetCode = string.Empty;
 
         try
