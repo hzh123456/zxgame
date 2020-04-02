@@ -300,28 +300,28 @@ namespace zxgame_server
             }
             if (flag)
             {
-                bool pingmin = true;
-                bool langren = true;
+                bool pingmin = false;
+                bool langren = false;
                 foreach(int index in shenfen.Keys)
                 {
                     if(shenfen[index].Contains("平民") || shenfen[index]=="警长")
                     {
-                        pingmin = false;
+                        pingmin = true;
                     }
                     if (shenfen[index].Contains("狼人") || shenfen[index] == "狼王")
                     {
-                        langren = false;
+                        langren = true;
                     }
-                    if(!pingmin && !langren)
+                    if(pingmin && langren)
                     {
                         break;
                     }
                 }
-                if(pingmin)
+                if(pingmin && !langren)
                 {
                     FuPan += "因为没有狼人存在，且独立阵营未获胜，平民胜利！\r\n";
                 }
-                else if(langren)
+                else if(langren && !pingmin)
                 {
                     FuPan += "因为没有平民存在，且独立阵营未获胜，狼人胜利！\r\n";
                 }
@@ -577,9 +577,8 @@ namespace zxgame_server
             }
             if (type == 1)
             {
-                SendMsg("startGame", null);
                 int TalkNum = new Random().Next(1, playernum + 1);
-                SendMsg("请" + TalkNum + "号玩家先发言！\r\n当所有人发言完毕后，玩家选择翻牌或点击其他玩家头像投票！\r\n\r\n|请" + TalkNum + "号玩家先发言！\r\n当所有人发言完毕后，玩家选择翻牌或点击其他玩家头像投票！\r\n\r\n|Gaming", null);
+                SendMsg("startGame|请" + TalkNum + "号玩家先发言！\r\n当所有人发言完毕后，玩家选择翻牌或点击其他玩家头像投票！\r\n\r\n", null);
             }
             if (type == 2)
             {

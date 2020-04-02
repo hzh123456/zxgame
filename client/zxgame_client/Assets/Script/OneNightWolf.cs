@@ -101,7 +101,7 @@ public class OneNightWolf : MonoBehaviour
                             players[i].GetComponentsInChildren<Text>()[0].text = "等待中";
                             players[i].GetComponentsInChildren<Text>()[1].text = "";
                         }
-
+                        realplayernum = roomInfos.Length - 2;
                         for (int i = 0; i < roomInfos.Length - 2; i++)
                         {
                             string[] user = roomInfos[i].Split(',');
@@ -309,7 +309,7 @@ public class OneNightWolf : MonoBehaviour
                 StartCoroutine(updateroom());
                 StartCoroutine(updatetalk(msg));
             }
-            else if (!String.IsNullOrEmpty(msg) && msg == "startGame")
+            else if (!String.IsNullOrEmpty(msg) && msg.Contains("startGame"))
             {
                 Quit.SetActive(false);
                 StartCoroutine(startGameIE2());

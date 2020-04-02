@@ -102,18 +102,21 @@ public class shanziWolf : MonoBehaviour
                             players[i].GetComponentsInChildren<Text>()[0].text = "等待中";
                             players[i].GetComponentsInChildren<Text>()[1].text = "";
                         }
-                        Debug.Log(roomInfos.Length);
+                        realplayernum = roomInfos.Length - 2;
                         for (int i = 0; i < roomInfos.Length - 2; i++)
                         {
                             string[] user = roomInfos[i].Split(',');
                             players[i].image.sprite = img[0];
                             players[i].GetComponentsInChildren<Text>()[0].text = user[1];
                             players[i].GetComponentsInChildren<Text>()[1].text = (i + 1).ToString();
-                            Debug.Log(players[i].GetComponentsInChildren<Text>()[0].text);
-                            Debug.Log(players[i].GetComponentsInChildren<Text>()[1].text);
                             shenfen[i] = user[2];
                             lastname[i] = user[1];
                             players[i].enabled = true;
+                            if (user[0] == Server.username)
+                            {
+                                Server.shenfen = user[2];
+                                Server.ZuoWei = i + 1;
+                            }
                         }
                         break; 
                     }
@@ -244,16 +247,12 @@ public class shanziWolf : MonoBehaviour
                 StartCoroutine(updateroom());
                 StartCoroutine(updatetalk(msg));
             }
-            else if (!String.IsNullOrEmpty(msg) && msg == "startGame")
-            {
-                Quit.SetActive(false);
-                FanPai.SetActive(true);
-                StartCoroutine(startGameIE2());
-            }
-            else if (!String.IsNullOrEmpty(msg) && msg.Contains("Gaming"))
+            else if (!String.IsNullOrEmpty(msg) && msg.Contains("startGame"))
             {
                 string str = msg.Split('|')[1];
-                content.text += str;
+                Quit.SetActive(false);
+                FanPai.SetActive(true);
+                StartCoroutine(startGameIE2(str));
             }
             else if (!String.IsNullOrEmpty(msg) && msg.Contains("FuPan"))
             {
@@ -269,17 +268,18 @@ public class shanziWolf : MonoBehaviour
         yield return new WaitForSeconds(0);
     }
 
-    private IEnumerator startGameIE2()
+    private IEnumerator startGameIE2(string msg)
     {
         roomstatus = 1;
         content.text += "游戏开始\r\n";
-        for (int i = 0; i < shenfen.Length;i++ )
+        for (int i = 0; i < realplayernum; i++)
         {
             if(Server.ZuoWei-1!=i)
             {
                 content.text += (i + 1) + "号玩家 "+ lastname[i] +" 的身份是：<color=#FF3030>" + shenfen[i] + "</color>\r\n";
             }
         }
+        content.text += msg;
         yield return new WaitForSeconds(0);
     }
 
