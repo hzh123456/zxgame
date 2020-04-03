@@ -276,7 +276,7 @@ public class shanziWolf : MonoBehaviour
         {
             if(Server.ZuoWei-1!=i)
             {
-                content.text += (i + 1) + "号玩家 "+ lastname[i] +" 的身份是：<color=#FF3030>" + shenfen[i] + "</color>\r\n";
+                content.text += (i + 1) + "号玩家 "+ lastname[i] +" \r\n的身份是：<color=#FF3030>" + shenfen[i] + "</color>\r\n";
             }
         }
         content.text += msg;
